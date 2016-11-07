@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,6 +40,9 @@ public class Project {
 	@GeneratedValue
 	private long id;
 
+	@Lob
+	private byte[] cover;
+
 	private String name;
 
 	private String location;
@@ -59,6 +63,14 @@ public class Project {
 
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<Beneficiary> beneficiaryList = new ArrayList<Beneficiary>();
+
+	public byte[] getCover() {
+		return cover;
+	}
+
+	public void setCover(byte[] cover) {
+		this.cover = cover;
+	}
 
 	public String getName() {
 		return name;

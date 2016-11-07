@@ -1,5 +1,9 @@
 package junittest;
 
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -161,6 +165,7 @@ public class App extends TestCase {
 			p1.addBeneficiary(b2);
 			p1.addTask(t1);
 			p1.addTask(t2);
+			p1.setCover(loadCover("smiths.jpg"));
 			em = emf.createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
@@ -179,6 +184,17 @@ public class App extends TestCase {
 				em.close();
 			}
 		}
+	}
+	
+	private static byte [] loadCover(String filename) {
+        Path p = FileSystems.getDefault().getPath(filename);
+        byte [] fileData = null;
+        try {
+			fileData = Files.readAllBytes(p);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileData;
 	}
 
 }
